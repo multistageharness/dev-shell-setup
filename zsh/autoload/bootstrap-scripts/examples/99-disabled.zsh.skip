@@ -1,0 +1,5 @@
+# Example of a DISABLED script (the .skip suffix means it is never sourced).
+# This whole file is ignored by the autoloader and shown under "skipped" by
+# `autoload-list`. Rename it to drop the trailing ".skip" to enable it.
+
+alias this_should_never_be_defined='echo "if you see this, .skip handling is broken"'
