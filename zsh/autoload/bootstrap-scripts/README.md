@@ -18,7 +18,10 @@ on your machine (use a path relative to your own checkout — do not copy an
 absolute path from elsewhere):
 
 ```zsh
-source "/path/to/zsh/autoload/bootstrap-scripts/autoload.zsh"
+export ZSH_AUTOLOAD_DIR=<PATH>
+export ZSH_AUTOLOAD_CACHE_DIR=$ZSH_AUTOLOAD_DIR/.cache
+export ZSH_AUTOLOAD_DEBUG=true
+source "{ROOT_PATH}/zsh/autoload/bootstrap-scripts/autoload.zsh"
 ```
 
 Sourced under a non-zsh shell, the loader prints a warning to stderr, defines
@@ -49,12 +52,12 @@ Skipped scripts appear under the `skipped` heading in `autoload-list`.
 
 All optional; sensible defaults are used when unset.
 
-| Variable | Purpose | Default |
-| --- | --- | --- |
-| `ZSH_AUTOLOAD_DIR` | Directory to scan for scripts | `<this dir>/examples` |
-| `ZSH_AUTOLOAD_CACHE_DIR` | Where the compiled cache lives | `${XDG_CACHE_HOME:-$HOME/.cache}/zsh-autoload` |
-| `ZSH_AUTOLOAD_TTL` | Cache lifetime, in seconds | `86400` (1 day) |
-| `ZSH_AUTOLOAD_DEBUG` | Non-empty → per-file status to stderr | _(off)_ |
+| Variable                 | Purpose                               | Default                                        |
+| ------------------------ | ------------------------------------- | ---------------------------------------------- |
+| `ZSH_AUTOLOAD_DIR`       | Directory to scan for scripts         | `<this dir>/examples`                          |
+| `ZSH_AUTOLOAD_CACHE_DIR` | Where the compiled cache lives        | `${XDG_CACHE_HOME:-$HOME/.cache}/zsh-autoload` |
+| `ZSH_AUTOLOAD_TTL`       | Cache lifetime, in seconds            | `86400` (1 day)                                |
+| `ZSH_AUTOLOAD_DEBUG`     | Non-empty → per-file status to stderr | _(off)_                                        |
 
 The loader is **silent by default** and never exports these variables or leaks
 options into your interactive shell.
@@ -68,12 +71,12 @@ text cache is still sourced.
 
 Public functions (available after the loader runs):
 
-| Command | What it does |
-| --- | --- |
-| `autoload-list` | Show the scan dir, cache path, and the loaded vs. skipped scripts |
-| `autoload-reload` | Re-scan and re-source in the current shell (no new shell needed) |
-| `autoload-clear-cache` | Delete the cache (text + `.zwc`); next load rebuilds it |
-| `autoload-rebuild-cache` | Clear, re-scan, rebuild the cache, and re-source |
+| Command                  | What it does                                                      |
+| ------------------------ | ----------------------------------------------------------------- |
+| `autoload-list`          | Show the scan dir, cache path, and the loaded vs. skipped scripts |
+| `autoload-reload`        | Re-scan and re-source in the current shell (no new shell needed)  |
+| `autoload-clear-cache`   | Delete the cache (text + `.zwc`); next load rebuilds it           |
+| `autoload-rebuild-cache` | Clear, re-scan, rebuild the cache, and re-source                  |
 
 ## Layout
 
