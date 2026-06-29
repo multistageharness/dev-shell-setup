@@ -122,42 +122,42 @@ npm-clean-lock() {
 
 # ---------------------------------------------------------------------------
 # Clean the global npm cache.
-#   npm-clean-cache
+#   npm-global-clean-cache
 #
 # Runs `npm cache clean --force`. This touches the shared npm download cache in
 # your home directory, not the current project, so it affects every project.
 # A no-op if npm is not installed. Prompts first.
 # ---------------------------------------------------------------------------
-npm-clean-cache() {
+npm-global-clean-cache() {
   if ! command -v npm >/dev/null 2>&1; then
-    echo "npm-clean-cache: npm not found on PATH — skipping" >&2
+    echo "npm-global-clean-cache: npm not found on PATH — skipping" >&2
     return 0
   fi
 
-  _npm-confirm "npm-clean-cache" "about to run 'npm cache clean --force' (clears the global npm cache)." || return 1
+  _npm-confirm "npm-global-clean-cache" "about to run 'npm cache clean --force' (clears the global npm cache)." || return 1
 
-  echo "npm-clean-cache: npm cache clean --force" >&2
+  echo "npm-global-clean-cache: npm cache clean --force" >&2
   npm cache clean --force
 }
 
 # ---------------------------------------------------------------------------
 # Clean the global pnpm content-addressable store.
-#   npm-clean-pnpm
+#   npm-global-clean-pnpm
 #
 # Runs `pnpm store prune`, which removes packages from the global pnpm store
 # that are not referenced by any project. This is the safe pnpm cache cleanup —
 # it never deletes packages still in use. A no-op if pnpm is not installed.
 # Prompts first.
 # ---------------------------------------------------------------------------
-npm-clean-pnpm() {
+npm-global-clean-pnpm() {
   if ! command -v pnpm >/dev/null 2>&1; then
-    echo "npm-clean-pnpm: pnpm not found on PATH — skipping" >&2
+    echo "npm-global-clean-pnpm: pnpm not found on PATH — skipping" >&2
     return 0
   fi
 
-  _npm-confirm "npm-clean-pnpm" "about to run 'pnpm store prune' (removes unreferenced packages from the global pnpm store)." || return 1
+  _npm-confirm "npm-global-clean-pnpm" "about to run 'pnpm store prune' (removes unreferenced packages from the global pnpm store)." || return 1
 
-  echo "npm-clean-pnpm: pnpm store prune" >&2
+  echo "npm-global-clean-pnpm: pnpm store prune" >&2
   pnpm store prune
 }
 
@@ -167,7 +167,7 @@ npm-clean-pnpm() {
 #
 # DESTRUCTIVE: deletes ./node_modules and the chosen lockfile(s) so the next
 # install starts completely fresh. Does NOT touch the global caches — use
-# npm-clean-cache / npm-clean-pnpm for those.
+# npm-global-clean-cache / npm-global-clean-pnpm for those.
 #
 # Honors the same NPM_CLEAN_FORCE=1 escape hatch; asks once up front, then runs
 # the underlying steps without re-prompting.
